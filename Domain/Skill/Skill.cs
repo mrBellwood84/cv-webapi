@@ -9,6 +9,6 @@ namespace Domain.Skill
         public string Name { get; set; }
         public string SvgUrl { get; set; }
         public int Rating { get; set; }
-        public List<TextLocale> Text { get; set; }
+        public List<SkillText> Text { get; set; }
     }
 }

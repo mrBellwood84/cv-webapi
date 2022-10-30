@@ -82,19 +82,19 @@ namespace Application.DataService.DataHandlers
                     Type = e.Type,
                     StartDate = e.StartDate,
                     EndDate = e.EndDate,
-                    Header = e.Header.Select(h => new TextLocale
+                    Header = e.Header.Select(h => new ExperienceHeader
                     {
                         Id = h.Id,
                         Code = h.Code,
                         Content = h.Content,
                     }).ToList(),
-                    Subheader = e.Subheader.Select(s => new TextLocale
+                    Subheader = e.Subheader.Select(s => new ExperienceSubheader
                     {
                         Id= s.Id,
                         Code= s.Code,
                         Content = s.Content,
                     }).ToList(),
-                    Text = e.Text.Select(t => new TextLocale
+                    Text = e.Text.Select(t => new ExperienceText
                     {
                         Id= t.Id,
                         Code = t.Code,

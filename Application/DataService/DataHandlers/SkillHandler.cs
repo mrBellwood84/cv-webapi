@@ -64,7 +64,7 @@ namespace Application.DataService.DataHandlers
                 Name = s.Name,
                 SvgUrl = s.SvgUrl,
                 Rating = s.Rating,
-                Text = s.Text.Select(t => new TextLocale
+                Text = s.Text.Select(t => new SkillText
                 {
                     Id = t.Id,
                     Code = t.Code,

@@ -4,11 +4,6 @@ using Domain.Skill;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
 using Persistence;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.DataService.DataHandlers
 {
@@ -47,9 +42,10 @@ namespace Application.DataService.DataHandlers
 
         public async Task DeleteSingle(Guid id)
         {
+
             var item = await _context.Project.FindAsync(id);
             _context.Project.Remove(item);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(); 
             await updateCache();
         }
 
@@ -67,25 +63,25 @@ namespace Application.DataService.DataHandlers
             return await _context.Project.Select(p => new Project
             {
                 Id = p.Id,
-                Name = p.Name,
-                LinkRepoUrl = p.LinkRepoUrl,
-                LinkWebsiteUrl = p.LinkWebsiteUrl,
+                ProjectName = p.ProjectName,
+                RepoUrl = p.RepoUrl,
+                WebsiteUrl = p.WebsiteUrl,
 
-                Text = p.Text.Select(t => new TextLocale
+                Text = p.Text.Select(t => new ProjectText
                 {
                     Id = t.Id,
                     Code = t.Code,
                     Content = t.Content,
                 }).ToList(),
 
-                Frameworks = p.Frameworks.Select(f => new SkillShort
+                Frameworks = p.Frameworks.Select(f => new FrameworkSkill
                 {
                     Id = f.Id,
                     Name = f.Name,
                     SvgUrl = f.SvgUrl,
                 }).ToList(),
 
-                Languages = p.Languages.Select(f => new SkillShort
+                Languages = p.Languages.Select(f => new LanguageSkill
                 {
                     Id = f.Id,
                     Name = f.Name,

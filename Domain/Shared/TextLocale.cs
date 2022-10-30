@@ -6,4 +6,16 @@
         public string Code { get; set; }
         public string Content { get; set; }
     }
+
+    public class CourseName : TextLocale { }
+    public class ExperienceHeader : TextLocale { }
+    public class ExperienceSubheader : TextLocale { }
+    public class ExperienceText : TextLocale { }
+    public class ProjectText : TextLocale { }
+    public class ReferenceText : TextLocale { }
+    public class SchoolName : TextLocale { }
+    public class SchoolText : TextLocale { }
+    public class SkillText : TextLocale { }
+
+
 }

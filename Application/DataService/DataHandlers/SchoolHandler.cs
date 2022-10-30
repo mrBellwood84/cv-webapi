@@ -83,13 +83,13 @@ namespace Application.DataService.DataHandlers
             return await _context.School.Select(x => new School
             {
                 Id = x.Id,
-                SchoolName = x.SchoolName.Select(s => new TextLocale
+                SchoolName = x.SchoolName.Select(s => new SchoolName
                 {
                     Id = s.Id,
                     Code = s.Code,
                     Content = s.Content,
                 }).ToList(),
-                Course = x.Course.Select(x => new TextLocale
+                Course = x.Course.Select(x => new CourseName
                 {
                     Id = x.Id,
                     Code = x.Code,
@@ -97,7 +97,7 @@ namespace Application.DataService.DataHandlers
                 }).ToList(),
                 StartDate = x.StartDate,
                 EndDate = x.EndDate,
-                Text = x.Text.Select(s => new TextLocale
+                Text = x.Text.Select(s => new SchoolText
                 {
                     Id = s.Id,
                     Code = s.Code,

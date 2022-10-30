@@ -8,8 +8,11 @@ namespace Domain.Experience
         public string Type { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
-        public List<TextLocale> Header { get; set; }
-        public List<TextLocale> Subheader { get; set; }
-        public List<TextLocale> Text { get; set; }    
+        public List<ExperienceHeader> Header { get; set; }
+        public List<ExperienceSubheader> Subheader { get; set; }
+        public List<ExperienceText> Text { get; set; }    
     }
+
+    public class EmploymentExperience : Experience { }
+
 }

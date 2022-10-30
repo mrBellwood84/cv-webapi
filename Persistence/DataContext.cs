@@ -25,86 +25,90 @@ namespace Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<School>()
-                .HasMany(x => x.SchoolName)
+            builder.Entity<Employment>()
+                .HasMany(e => e.Positions)
                 .WithOne()
-                .HasForeignKey("schoolId")
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<School>()
-                .HasMany(x => x.Course)
+            builder.Entity<Employment>()
+                .HasMany(e => e.References)
                 .WithOne()
-                .HasForeignKey("courseId")
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<School>()
-                .HasMany(x => x.Text)
+
+            builder.Entity<EmploymentExperience>()
+                .HasMany(e => e.Header)
                 .WithOne()
-                .HasForeignKey("textId")
+                .HasForeignKey("EmploymentExperienceHeader")
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<EmploymentExperience>()
+                .HasMany(e => e.Subheader)
+                .WithOne()
+                .HasForeignKey("EmploymentExperienceSubheader")
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<EmploymentExperience>()
+                .HasMany(e => e.Text)
+                .WithOne()
+                .HasForeignKey("EmploymentExperienceText")
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Experience>()
                 .HasMany(e => e.Header)
                 .WithOne()
-                .HasForeignKey("experienceHeaderId")
+                .HasForeignKey("ExperienceHeader")
                 .OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Experience>()
                 .HasMany(e => e.Subheader)
                 .WithOne()
-                .HasForeignKey("experienceSubheaderId")
+                .HasForeignKey("ExperienceSubheader")
                 .OnDelete(DeleteBehavior.Cascade);
             builder.Entity<Experience>()
                 .HasMany(e => e.Text)
                 .WithOne()
-                .HasForeignKey("experienceTextId")
+                .HasForeignKey("ExperienceText")
+                .OnDelete(DeleteBehavior.Cascade);
+
+            builder.Entity<Project>()
+                .HasMany(e => e.Languages)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Project>()
+                .HasMany(e => e.Frameworks)
+                .WithOne()
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<Project>()
+                .HasMany(e => e.Text)
+                .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Reference>()
-                .HasMany(r => r.Role)
+                .HasMany(e => e.Role)
                 .WithOne()
-                .HasForeignKey("referenceRoleId")
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<Employment>()
-                .HasMany(e => e.Positions)
+            builder.Entity<School>()
+                .HasMany(e => e.SchoolName)
                 .WithOne()
-                .HasForeignKey("employmentPositionId")
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Employment>()
-                .HasMany(e => e.References)
+            builder.Entity<School>()
+                .HasMany(e => e.Course)
                 .WithOne()
-                .HasForeignKey("employmentReferenceId")
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<School>()
+                .HasMany(e => e.Text)
+                .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Skill>()
-                .HasMany(x => x.Text)
+                .HasMany(e => e.Text)
                 .WithOne()
-                .HasForeignKey("skillTextId")
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<Project>()
-                .HasMany(x => x.Frameworks)
-                .WithOne()
-                .HasForeignKey("projectFrameworkId")
-                .OnDelete(DeleteBehavior.NoAction);
-            builder.Entity<Project>()
-                .HasMany(x => x.Languages)
-                .WithOne()
-                .HasForeignKey("projectLanguageId")
-                .OnDelete(DeleteBehavior.NoAction);
-
-
+                
         }
 
         public DbSet<Employment> Employment { get; set; }
-
         public DbSet<Experience> Experience { get; set; }
-
-        public DbSet<School> School { set; get; }
-
-        public DbSet<Skill> Skill { set; get; }
-
         public DbSet<Project> Project { get; set; }
-
-        private DbSet<Reference> References { get; set; }
-    
+        public DbSet<School> School { get; set; }
+        public DbSet<Skill> Skill { get; set; }
     }
-}
+} 

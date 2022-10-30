@@ -64,28 +64,28 @@ namespace Application.DataService.DataHandlers
                 Employer = e.Employer,
                 StartDate = e.StartDate,
                 EndDate = e.EndDate,
-                Positions = e.Positions.Select(p => new Experience
+                Positions = e.Positions.Select(p => new EmploymentExperience
                 {
                     Id = p.Id,
                     Type = p.Type,
                     StartDate = p.StartDate,
                     EndDate = p.EndDate,
 
-                    Header = p.Header.Select(t => new TextLocale
+                    Header = p.Header.Select(t => new ExperienceHeader
                     {
                         Id = t.Id,
                         Code = t.Code,
                         Content = t.Content,
                     }).ToList(),
 
-                    Subheader = p.Subheader.Select(t => new TextLocale
+                    Subheader = p.Subheader.Select(t => new ExperienceSubheader
                     {
                         Id = t.Id,
                         Code = t.Code,
                         Content = t.Content,
                     }).ToList(),
 
-                    Text = p.Text.Select(t => new TextLocale
+                    Text = p.Text.Select(t => new ExperienceText
                     {
                         Id = t.Id,
                         Code = t.Code,
@@ -98,7 +98,7 @@ namespace Application.DataService.DataHandlers
                 {
                     Id = e.Id,
                     Name = e.Name,
-                    Role = e.Role.Select(t => new TextLocale
+                    Role = e.Role.Select(t => new ReferenceText
                     {
                         Id = t.Id,
                         Code = t.Code,

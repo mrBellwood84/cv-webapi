@@ -63,7 +63,7 @@ namespace API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteSingleProject(RequestById request)
+        public async Task<ActionResult<Project>> DeleteSingleProject(RequestById request)
         {
             try
             {
@@ -74,6 +74,7 @@ namespace API.Controllers
             {
                 return StatusCode(500);
             }
+
         }
     }
 

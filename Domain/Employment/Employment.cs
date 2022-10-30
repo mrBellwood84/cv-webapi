@@ -1,4 +1,5 @@
-﻿using Domain.Shared;
+﻿using Domain.Experience;
+using Domain.Shared;
 
 namespace Domain.Employment
 {
@@ -8,7 +9,7 @@ namespace Domain.Employment
         public string Employer { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public List<Experience.Experience> Positions  { get; set; }
+        public List<EmploymentExperience> Positions  { get; set; }
         public List<Reference> References { get; set; }
     }
 }
