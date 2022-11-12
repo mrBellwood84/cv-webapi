@@ -6,7 +6,7 @@ namespace Application.DataService
     {
         EmploymentHandler Employment { get; }
         ExperienceHandler Experience { get; }
-        PortfolioHandler Portfolio { get; }
+        ProjectHandler Portfolio { get; }
         SchoolHandler School { get; }
         SkillHandler Skill { get; }
     }

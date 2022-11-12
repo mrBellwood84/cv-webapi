@@ -8,9 +8,14 @@
     }
 
     public class CourseName : TextLocale { }
+
     public class ExperienceHeader : TextLocale { }
     public class ExperienceSubheader : TextLocale { }
     public class ExperienceText : TextLocale { }
+
+    public class PositionHeader : TextLocale { }
+    public class PositionText : TextLocale { }
+
     public class ProjectText : TextLocale { }
     public class ReferenceText : TextLocale { }
     public class SchoolName : TextLocale { }

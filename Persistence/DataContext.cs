@@ -25,26 +25,13 @@ namespace Persistence
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Employment>()
-                .HasMany(e => e.Positions)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Employment>()
-                .HasMany(e => e.References)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<EmploymentExperience>()
+            builder.Entity<PositionEntity>()
                 .HasMany(e => e.Header)
                 .WithOne()
                 .HasForeignKey("EmploymentExperienceHeader")
                 .OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<EmploymentExperience>()
-                .HasMany(e => e.Subheader)
-                .WithOne()
-                .HasForeignKey("EmploymentExperienceSubheader")
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<EmploymentExperience>()
+            builder.Entity<PositionEntity>()
                 .HasMany(e => e.Text)
                 .WithOne()
                 .HasForeignKey("EmploymentExperienceText")
@@ -79,7 +66,7 @@ namespace Persistence
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<Reference>()
+            builder.Entity<ReferenceEntity>()
                 .HasMany(e => e.Role)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
@@ -105,9 +92,11 @@ namespace Persistence
                 
         }
 
-        public DbSet<Employment> Employment { get; set; }
+        public DbSet<EmploymentEntity> Employment { get; set; }
+        public DbSet<PositionEntity> Position { get; set; }
         public DbSet<Experience> Experience { get; set; }
         public DbSet<Project> Project { get; set; }
+        public DbSet<ReferenceEntity> Reference { get; set; }
         public DbSet<School> School { get; set; }
         public DbSet<Skill> Skill { get; set; }
     }

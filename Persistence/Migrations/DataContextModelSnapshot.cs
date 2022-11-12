@@ -17,7 +17,7 @@ namespace Persistence.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.9");
 
-            modelBuilder.Entity("Domain.Employment.Employment", b =>
+            modelBuilder.Entity("Domain.Employment.EmploymentEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -37,14 +37,33 @@ namespace Persistence.Migrations
                     b.ToTable("Employment");
                 });
 
-            modelBuilder.Entity("Domain.Experience.Experience", b =>
+            modelBuilder.Entity("Domain.Employment.PositionEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
+                    b.Property<Guid>("EmploymentId")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("EndDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<DateTime?>("StartDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Position");
+                });
+
+            modelBuilder.Entity("Domain.Experience.Experience", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime?>("EndDate")
@@ -59,8 +78,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Experience");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Experience");
                 });
 
             modelBuilder.Entity("Domain.Project.Project", b =>
@@ -134,9 +151,6 @@ namespace Persistence.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("EmploymentExperienceHeader")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid?>("ExperienceHeader")
                         .HasColumnType("TEXT");
 
@@ -157,9 +171,6 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Content")
-                        .HasColumnType("TEXT");
-
-                    b.Property<Guid?>("EmploymentExperienceSubheader")
                         .HasColumnType("TEXT");
 
                     b.Property<Guid?>("ExperienceSubheader")
@@ -184,9 +195,6 @@ namespace Persistence.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("EmploymentExperienceText")
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid?>("ExperienceText")
                         .HasColumnType("TEXT");
 
@@ -195,6 +203,50 @@ namespace Persistence.Migrations
                     b.HasIndex("ExperienceText");
 
                     b.ToTable("ExperienceText");
+                });
+
+            modelBuilder.Entity("Domain.Shared.PositionHeader", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("EmploymentExperienceHeader")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmploymentExperienceHeader");
+
+                    b.ToTable("PositionHeader");
+                });
+
+            modelBuilder.Entity("Domain.Shared.PositionText", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Content")
+                        .HasColumnType("TEXT");
+
+                    b.Property<Guid?>("EmploymentExperienceText")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmploymentExperienceText");
+
+                    b.ToTable("PositionText");
                 });
 
             modelBuilder.Entity("Domain.Shared.ProjectText", b =>
@@ -219,7 +271,7 @@ namespace Persistence.Migrations
                     b.ToTable("ProjectText");
                 });
 
-            modelBuilder.Entity("Domain.Shared.Reference", b =>
+            modelBuilder.Entity("Domain.Shared.ReferenceEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -228,7 +280,7 @@ namespace Persistence.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("EmploymentId")
+                    b.Property<Guid>("EmploymentId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
@@ -238,8 +290,6 @@ namespace Persistence.Migrations
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EmploymentId");
 
                     b.ToTable("Reference");
                 });
@@ -256,12 +306,12 @@ namespace Persistence.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ReferenceId")
+                    b.Property<Guid?>("ReferenceEntityId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ReferenceId");
+                    b.HasIndex("ReferenceEntityId");
 
                     b.ToTable("ReferenceText");
                 });
@@ -399,18 +449,6 @@ namespace Persistence.Migrations
                     b.ToTable("Skill");
                 });
 
-            modelBuilder.Entity("Domain.Experience.EmploymentExperience", b =>
-                {
-                    b.HasBaseType("Domain.Experience.Experience");
-
-                    b.Property<Guid?>("EmploymentId")
-                        .HasColumnType("TEXT");
-
-                    b.HasIndex("EmploymentId");
-
-                    b.HasDiscriminator().HasValue("EmploymentExperience");
-                });
-
             modelBuilder.Entity("Domain.Shared.CourseName", b =>
                 {
                     b.HasOne("Domain.School.School", null)
@@ -443,6 +481,22 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("Domain.Shared.PositionHeader", b =>
+                {
+                    b.HasOne("Domain.Employment.PositionEntity", null)
+                        .WithMany("Header")
+                        .HasForeignKey("EmploymentExperienceHeader")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Domain.Shared.PositionText", b =>
+                {
+                    b.HasOne("Domain.Employment.PositionEntity", null)
+                        .WithMany("Text")
+                        .HasForeignKey("EmploymentExperienceText")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Domain.Shared.ProjectText", b =>
                 {
                     b.HasOne("Domain.Project.Project", null)
@@ -451,19 +505,11 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Domain.Shared.Reference", b =>
-                {
-                    b.HasOne("Domain.Employment.Employment", null)
-                        .WithMany("References")
-                        .HasForeignKey("EmploymentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Domain.Shared.ReferenceText", b =>
                 {
-                    b.HasOne("Domain.Shared.Reference", null)
+                    b.HasOne("Domain.Shared.ReferenceEntity", null)
                         .WithMany("Role")
-                        .HasForeignKey("ReferenceId")
+                        .HasForeignKey("ReferenceEntityId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -507,19 +553,11 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Domain.Experience.EmploymentExperience", b =>
+            modelBuilder.Entity("Domain.Employment.PositionEntity", b =>
                 {
-                    b.HasOne("Domain.Employment.Employment", null)
-                        .WithMany("Positions")
-                        .HasForeignKey("EmploymentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+                    b.Navigation("Header");
 
-            modelBuilder.Entity("Domain.Employment.Employment", b =>
-                {
-                    b.Navigation("Positions");
-
-                    b.Navigation("References");
+                    b.Navigation("Text");
                 });
 
             modelBuilder.Entity("Domain.Experience.Experience", b =>
@@ -549,7 +587,7 @@ namespace Persistence.Migrations
                     b.Navigation("Text");
                 });
 
-            modelBuilder.Entity("Domain.Shared.Reference", b =>
+            modelBuilder.Entity("Domain.Shared.ReferenceEntity", b =>
                 {
                     b.Navigation("Role");
                 });

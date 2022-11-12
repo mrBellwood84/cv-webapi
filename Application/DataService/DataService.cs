@@ -11,14 +11,14 @@ namespace Application.DataService
         {
             Employment = new EmploymentHandler(cache, context);
             Experience = new ExperienceHandler(cache, context);
-            Portfolio = new PortfolioHandler(cache, context);
+            Portfolio = new ProjectHandler(cache, context);
             School = new SchoolHandler(cache, context);
             Skill = new SkillHandler(cache, context);
         }
 
         public EmploymentHandler Employment { get; }
         public ExperienceHandler Experience { get; }
-        public PortfolioHandler Portfolio { get; }
+        public ProjectHandler Portfolio { get; }
         public SchoolHandler School { get; }
         public SkillHandler Skill { get; }
     }

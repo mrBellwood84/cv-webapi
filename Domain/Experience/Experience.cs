@@ -12,7 +12,4 @@ namespace Domain.Experience
         public List<ExperienceSubheader> Subheader { get; set; }
         public List<ExperienceText> Text { get; set; }    
     }
-
-    public class EmploymentExperience : Experience { }
-
 }

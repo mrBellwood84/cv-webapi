@@ -7,13 +7,13 @@ using Persistence;
 
 namespace Application.DataService.DataHandlers
 {
-    public class PortfolioHandler
+    public class ProjectHandler
     {
         private readonly IMemoryCache _cache;
         private readonly DataContext _context;
         private readonly string _cacheKey = "portfolio";
 
-        public PortfolioHandler(IMemoryCache cache, DataContext context)
+        public ProjectHandler(IMemoryCache cache, DataContext context)
         {
             _cache = cache;
             _context = context;
