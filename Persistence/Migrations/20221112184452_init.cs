@@ -38,6 +38,34 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FrameworkSkill",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ProjectId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    SvgUrl = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FrameworkSkill", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LanguageSkill",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    ProjectId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: true),
+                    SvgUrl = table.Column<string>(type: "TEXT", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LanguageSkill", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Position",
                 columns: table => new
                 {
@@ -210,51 +238,11 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "FrameworkSkill",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ProjectId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    SvgUrl = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_FrameworkSkill", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_FrameworkSkill_Project_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Project",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "LanguageSkill",
-                columns: table => new
-                {
-                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ProjectId = table.Column<Guid>(type: "TEXT", nullable: true),
-                    Name = table.Column<string>(type: "TEXT", nullable: true),
-                    SvgUrl = table.Column<string>(type: "TEXT", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_LanguageSkill", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_LanguageSkill_Project_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Project",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProjectText",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "TEXT", nullable: false),
-                    ProjectId = table.Column<Guid>(type: "TEXT", nullable: true),
+                    ProjectEntityId = table.Column<Guid>(type: "TEXT", nullable: true),
                     Code = table.Column<string>(type: "TEXT", nullable: true),
                     Content = table.Column<string>(type: "TEXT", nullable: true)
                 },
@@ -262,8 +250,8 @@ namespace Persistence.Migrations
                 {
                     table.PrimaryKey("PK_ProjectText", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProjectText_Project_ProjectId",
-                        column: x => x.ProjectId,
+                        name: "FK_ProjectText_Project_ProjectEntityId",
+                        column: x => x.ProjectEntityId,
                         principalTable: "Project",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -390,16 +378,6 @@ namespace Persistence.Migrations
                 column: "ExperienceText");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FrameworkSkill_ProjectId",
-                table: "FrameworkSkill",
-                column: "ProjectId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_LanguageSkill_ProjectId",
-                table: "LanguageSkill",
-                column: "ProjectId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PositionHeader_EmploymentExperienceHeader",
                 table: "PositionHeader",
                 column: "EmploymentExperienceHeader");
@@ -410,9 +388,9 @@ namespace Persistence.Migrations
                 column: "EmploymentExperienceText");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProjectText_ProjectId",
+                name: "IX_ProjectText_ProjectEntityId",
                 table: "ProjectText",
-                column: "ProjectId");
+                column: "ProjectEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ReferenceText_ReferenceEntityId",

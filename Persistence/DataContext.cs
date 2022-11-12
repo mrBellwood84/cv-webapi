@@ -53,15 +53,7 @@ namespace Persistence
                 .HasForeignKey("ExperienceText")
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<Project>()
-                .HasMany(e => e.Languages)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Project>()
-                .HasMany(e => e.Frameworks)
-                .WithOne()
-                .OnDelete(DeleteBehavior.Cascade);
-            builder.Entity<Project>()
+            builder.Entity<ProjectEntity>()
                 .HasMany(e => e.Text)
                 .WithOne()
                 .OnDelete(DeleteBehavior.Cascade);
@@ -95,9 +87,12 @@ namespace Persistence
         public DbSet<EmploymentEntity> Employment { get; set; }
         public DbSet<PositionEntity> Position { get; set; }
         public DbSet<Experience> Experience { get; set; }
-        public DbSet<Project> Project { get; set; }
+        public DbSet<ProjectEntity> Project { get; set; }
         public DbSet<ReferenceEntity> Reference { get; set; }
         public DbSet<School> School { get; set; }
         public DbSet<Skill> Skill { get; set; }
+
+        public DbSet<LanguageSkillEntity> LanguageSkill { get; set; }
+        public DbSet<FrameworkSkillEntity> FrameworkSkill { get; set; }
     }
 } 

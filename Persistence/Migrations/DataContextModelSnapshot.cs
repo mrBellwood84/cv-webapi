@@ -80,7 +80,7 @@ namespace Persistence.Migrations
                     b.ToTable("Experience");
                 });
 
-            modelBuilder.Entity("Domain.Project.Project", b =>
+            modelBuilder.Entity("Domain.Project.ProjectEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -261,12 +261,12 @@ namespace Persistence.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ProjectId")
+                    b.Property<Guid?>("ProjectEntityId")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProjectId");
+                    b.HasIndex("ProjectEntityId");
 
                     b.ToTable("ProjectText");
                 });
@@ -382,7 +382,7 @@ namespace Persistence.Migrations
                     b.ToTable("SkillText");
                 });
 
-            modelBuilder.Entity("Domain.Skill.FrameworkSkill", b =>
+            modelBuilder.Entity("Domain.Skill.FrameworkSkillEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -391,20 +391,18 @@ namespace Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ProjectId")
+                    b.Property<Guid>("ProjectId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SvgUrl")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
 
                     b.ToTable("FrameworkSkill");
                 });
 
-            modelBuilder.Entity("Domain.Skill.LanguageSkill", b =>
+            modelBuilder.Entity("Domain.Skill.LanguageSkillEntity", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -413,15 +411,13 @@ namespace Persistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid?>("ProjectId")
+                    b.Property<Guid>("ProjectId")
                         .HasColumnType("TEXT");
 
                     b.Property<string>("SvgUrl")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProjectId");
 
                     b.ToTable("LanguageSkill");
                 });
@@ -499,9 +495,9 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Shared.ProjectText", b =>
                 {
-                    b.HasOne("Domain.Project.Project", null)
+                    b.HasOne("Domain.Project.ProjectEntity", null)
                         .WithMany("Text")
-                        .HasForeignKey("ProjectId")
+                        .HasForeignKey("ProjectEntityId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -537,22 +533,6 @@ namespace Persistence.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("Domain.Skill.FrameworkSkill", b =>
-                {
-                    b.HasOne("Domain.Project.Project", null)
-                        .WithMany("Frameworks")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Domain.Skill.LanguageSkill", b =>
-                {
-                    b.HasOne("Domain.Project.Project", null)
-                        .WithMany("Languages")
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("Domain.Employment.PositionEntity", b =>
                 {
                     b.Navigation("Header");
@@ -569,12 +549,8 @@ namespace Persistence.Migrations
                     b.Navigation("Text");
                 });
 
-            modelBuilder.Entity("Domain.Project.Project", b =>
+            modelBuilder.Entity("Domain.Project.ProjectEntity", b =>
                 {
-                    b.Navigation("Frameworks");
-
-                    b.Navigation("Languages");
-
                     b.Navigation("Text");
                 });
 

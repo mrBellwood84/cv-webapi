@@ -18,7 +18,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Project>>> GetAllProjectData()
+        public async Task<ActionResult<List<ProjectDto>>> GetAllProjectData()
         {
             try
             {
@@ -33,7 +33,7 @@ namespace API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<ActionResult<Project>> AddSingleProject(Project project)
+        public async Task<ActionResult<ProjectDto>> AddSingleProject(ProjectDto project)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPut]
-        public async Task<ActionResult<Project>> UpdateSingleProject(Project project)
+        public async Task<ActionResult<ProjectDto>> UpdateSingleProject(ProjectDto project)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpDelete]
-        public async Task<ActionResult<Project>> DeleteSingleProject(RequestById request)
+        public async Task<IActionResult> DeleteSingleProject(RequestById request)
         {
             try
             {
