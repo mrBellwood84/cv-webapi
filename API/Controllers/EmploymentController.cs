@@ -18,7 +18,7 @@ namespace API.Controllers
         }
 
         [HttpGet] 
-        public async Task<ActionResult<List<Employment>>> GetAll()
+        public async Task<ActionResult<List<EmploymentEntity>>> GetAll()
         {
             try
             {
@@ -33,7 +33,7 @@ namespace API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<ActionResult<Employment>> AddSingle(Employment employment)
+        public async Task<ActionResult<EmploymentEntity>> AddSingle(EmploymentDto employment)
         {
             try
             {
@@ -48,8 +48,10 @@ namespace API.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPut]
-        public async Task<ActionResult<Employment>> UpdateSingle(Employment employment)
+        public async Task<ActionResult<EmploymentEntity>> UpdateSingle(EmploymentDto employment)
         {
+            await _dataService.Employment.UpdateSingle(employment);
+            return Ok(employment);
             try
             {
                 await _dataService.Employment.UpdateSingle(employment);
