@@ -50,8 +50,6 @@ namespace API.Controllers
         [HttpPut]
         public async Task<ActionResult<EmploymentEntity>> UpdateSingle(EmploymentDto employment)
         {
-            await _dataService.Employment.UpdateSingle(employment);
-            return Ok(employment);
             try
             {
                 await _dataService.Employment.UpdateSingle(employment);
